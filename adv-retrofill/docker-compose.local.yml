@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  adv-retrofill:
+    image: us-docker.pkg.dev/lb-artifacts-testing/container/lb-catalog-adv-retrofill
+    ports:
+      - "9995:8080"
+    build:
+      context: packages/datavault/adv-retrofill
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/default@default
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: prisma
+      SPRING_CLOUD_GCP_PUBSUB_EMULATOR_HOST: 'pubsub:8085'
+      SPRING_CLOUD_GCP_PUBSUB_PROJECT_ID: 'local0'
+      RETROFILL_ES_URL: 'http://host.docker.internal:9208'
+      RETROFILL_ES_USERNAME: es
+      RETROFILL_ES_PASSWORD: es
+      RETROFILL_ADV_ENDPOINT: 'http://host.docker.internal:9993'
+      RETROFILL_ADV_SECRET: 'localAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.localQiOjE1MjIxMzA4MzMsImNsaWVudElkIjoiY2pmOTliZmplMDAwMDAxMjUyeHdtOWY1eSIsInByb2plY3RJZCI6ImNqZjk5Yzh1MzAwMDQwMTI1d2p1bzlmZDYiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqZjk5ZWJwczAwOWUwMTI1OTBoNjc4dnEifQ.localpx4bRTnyMv7u5yOi6U7RYy1zfsbhRb15p8930'
+      GOOGLE_CLOUD_PROJECT: 'local0'
+      LOGGING_LEVEL_COM_LABELBOX: 'DEBUG'
+      JAVA_OPTS: -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xms384m -Xmx512m
+    depends_on:
+      - pubsub
+      - adv

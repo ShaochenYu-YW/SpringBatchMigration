@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    host: localhost
+    port: 3306
+    database: default
+    username: root
+    password: prisma
+    replica-port: 3307
+    job-database: apr
+  batch:
+    initialize-schema: always
+  slack:
+    url: https://hooks.slack.com/services/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
+  ld:
+    api:
+      url: https://app.launchdarkly.com/api/v2/segments
+      project: default
+      environment: production
+      in-migration-segment: adv-data-migration-in-migration-orgs-segment
+      segment: adv-data-migration-orgs-segment
+      api-token: api-0979f848-af72-478c-b053-f998733c6ce6
+  profiles:
+    active:
+      - gcp
+      - prod
+  es:
+    url: http://localhost:9208
+    username: es
+    password: es
+
+server:
+  http2:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: never
+    include-binding-errors: always
+
+  compression:
+    enabled: true
+    mime-types: application/json
+    min-response-size: 1024
+
+spanner:
+  url: projects/mchambers-labelbox-com-351319/instances/labelbox/databases/adv
+  test-source-url: projects/mchambers-labelbox-com-351319/instances/labelbox/databases/adv
