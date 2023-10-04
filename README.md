@@ -9,6 +9,7 @@ Efficient data transformation capabilities during migration.
 Flexible control over starting, checking, resuming, or canceling migration jobs.
 Detailed migration reports, including data read and write statistics.
 Support for incremental data updates during migration (via ElasticSearch source).
+
 2. Getting Started:
 To get started, utilize the following APIs:
 
